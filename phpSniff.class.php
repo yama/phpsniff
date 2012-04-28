@@ -35,7 +35,7 @@
  *  @author Roger Raymond <epsilon7@users.sourceforge.net>
  */
 class phpSniff
-{   
+{
     
     /**
      * @access private
@@ -121,11 +121,11 @@ class phpSniff
         'konqueror'                   => 'KQ',
         'icab'                        => 'IC',
         'lynx'                        => 'LX',
-		'links'                       => 'LI',					
+        'links'                       => 'LI',
         'ncsa mosaic'                 => 'MO',
         'amaya'                       => 'AM',
         'omniweb'                     => 'OW',
-		'hotjava'					  => 'HJ',
+        'hotjava'                     => 'HJ',
         'browsex'                     => 'BX',
         'amigavoyager'                => 'AV',
         'amiga-aweb'                  => 'AW',
@@ -151,7 +151,7 @@ class phpSniff
         '1.2'   =>  'NS4+,IE4+',
         '1.1'   =>  'NS3+,OP,KQ',
         '1.0'   =>  'NS2+,IE3+',
-		'0'     =>	'LI,LX,HJ'	
+        '0'     =>  'LI,LX,HJ'
         );
 		
     /**
@@ -165,7 +165,7 @@ class phpSniff
      *              :               set in the $_browsers array
      *  @access public
      *  @var string
-     */	
+     */
 	var $_browser_features = array(
 		/**
 		 *	the following are true by default
@@ -177,7 +177,7 @@ class phpSniff
 		'tables'	=>	'',
 		'java'		=>	'OP3,LI,LX,NS1,MO,IE1,IE2',
 		'plugins'	=>	'IE1,IE2,LI,LX',
-		/**  
+		/**
 		 *	the following are false by default
 		 *	browsers listed here will be set to true
 		 **/
@@ -202,7 +202,7 @@ class phpSniff
      *              :               set in the $_browsers array
      *  @access public
      *  @var string
-     */	
+     */
 	var $_browser_quirks = array(
 		'must_cache_forms'			=>	'NS,MZ,FB,PX,FX',
 		'avoid_popup_windows'		=>	'IE3,LI,LX',
@@ -334,7 +334,7 @@ class phpSniff
     }
 
     function init ()
-    {   
+    {
         //  collect the ip
         	$this->_get_ip();
         //  run the cookie check routine first
@@ -358,27 +358,27 @@ class phpSniff
 
     /**
      *  turn the cookie check routine on or off
-     *  @param bool true or false    
+     *  @param bool true or false
      */
-    function check_cookies($yn) 
+    function check_cookies($yn)
     {
         $this->_check_cookies = (bool) $yn;
     }
     
     /**
      *  allow browser masquerading
-     *  @param bool true or false    
+     *  @param bool true or false
      */
-    function allow_masquerading($yn) 
+    function allow_masquerading($yn)
     {
         $this->_allow_masquerading = (bool) $yn;
     }
     
     /**
      *  set the default browser language
-     *  @param string valid language (ex: en-us)    
+     *  @param string valid language (ex: en-us)
      */
-    function default_language($language) 
+    function default_language($language)
     {
         $this->_default_language = $language;
     }
@@ -504,9 +504,9 @@ class phpSniff
 		$search['direction']	= isset($data[4]) ? strtolower($data[4]) : '';
 		
         $looking_for = $search['maj_ver'].$search['min_ver'];
-        if($search['name'] == 'aol' || $search['name'] == 'webtv') {   
+        if($search['name'] == 'aol' || $search['name'] == 'webtv') {
             return stristr($this->_browser_info['ua'],$search['name']);
-        } elseif($this->_browser_info['browser'] == $search['name'] || $search['name'] == 'gecko') {   
+        } elseif($this->_browser_info['browser'] == $search['name'] || $search['name'] == 'gecko') {
             if(strtolower($search['name']) == 'gecko') {
                 $what_we_are =& $this->_browser_info['gecko_ver'];
             } else {
@@ -514,7 +514,7 @@ class phpSniff
                 $minv = $search['min_ver'] ? $this->_browser_info['min_ver'] : '';
                 $what_we_are = $majv.$minv;
             }
-            if(($search['direction'] == 'up' || $search['direction'] == '+') 
+            if(($search['direction'] == 'up' || $search['direction'] == '+')
                && ($what_we_are >= $looking_for))
             {   return true;
             }
@@ -791,7 +791,7 @@ class phpSniff
                 $location='http://'.getenv('SERVER_NAME').$script_path.($QS==''?'':'?'.$QS);
                 header("Location: $location");
                 exit;
-            } elseif($fp) {   
+            } elseif($fp) {
                 // we only want to proceed if we have a file pointer
                 unlink($this->_temp_file_path.$this->property('ip'));
                 fclose($fp);
@@ -850,7 +850,7 @@ class phpSniff
 					break;
 				}
 			}
-		}		
+		}
 	}
 	
     /**
@@ -859,10 +859,10 @@ class phpSniff
     function _get_gecko ()
 	{	if(preg_match('/gecko\/([0-9]+)/i',$this->property('ua'),$match))
 		{	$this->_set_browser('gecko',$match[1]);
-            if (preg_match('/rv[: ]?([0-9a-z.+]+)/i',$this->property('ua'),$mozv)) {   
+            if (preg_match('/rv[: ]?([0-9a-z.+]+)/i',$this->property('ua'),$mozv)) {
 				// mozilla release
 				$this->_set_browser('gecko_ver',$mozv[1]);
-            } elseif (preg_match('/(m[0-9]+)/i',$this->property('ua'),$mozv)) {   
+            } elseif (preg_match('/(m[0-9]+)/i',$this->property('ua'),$mozv)) {
 				// mozilla milestone version
 				$this->_set_browser('gecko_ver',$mozv[1]);
             }
@@ -903,4 +903,3 @@ class phpSniff
     {   $this->_quirks[strtolower($k)] = true;
     }
 }
-?>
